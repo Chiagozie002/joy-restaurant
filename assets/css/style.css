@@ -1,0 +1,180 @@
+/* ===== JOY RESTAURANT — GLOBAL STYLES ===== */
+/* 1. Design tokens (brand colours, fonts, radii) */
+:root{--orange:#F47716;--amber:#FFAA32;--gold:#FFD166;--brown:#271711;
+--grad:linear-gradient(135deg,var(--orange),var(--amber));--r:16px;
+--font-head:'Playfair Display',serif;--font-body:'DM Sans',sans-serif}
+/* 2. Themes: dark is default, light overrides the variables */
+[data-theme=dark]{--bg:#150d09;--bg2:#1f130d;--card:#2a1a12;--text:#fbefe3;--muted:#c9b4a3;--line:rgba(255,170,50,.18)}
+[data-theme=light]{--bg:#fff8f0;--bg2:#fdeedd;--card:#fff;--text:#271711;--muted:#6f5a4c;--line:rgba(244,119,22,.2)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);transition:background .3s,color .3s}
+h1,h2,h3,h4,.brand{font-family:var(--font-head)}
+a{text-decoration:none}
+/* 3. Custom scrollbar (slim, orange accent, works on both themes) */
+*{scrollbar-width:thin;scrollbar-color:var(--orange) var(--bg2)}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--grad);border-radius:10px;transition:.3s}
+::-webkit-scrollbar-thumb:hover{background:var(--orange)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+/* 4. Buttons — CTA circle-fill hover grows from bottom centre */
+.btn-joy{position:relative;overflow:hidden;z-index:0;border:2px solid var(--orange);color:#fff;background:var(--grad);
+border-radius:50px;padding:.75rem 1.7rem;font-weight:600;transition:color .4s;display:inline-block}
+.btn-joy::before{content:"";position:absolute;left:50%;bottom:0;width:0;height:0;border-radius:50%;background:var(--brown);
+transform:translate(-50%,50%);transition:width .5s,padding-bottom .5s;z-index:-1}
+.btn-joy:hover::before{width:320%;padding-bottom:320%}
+.btn-joy:hover{color:var(--gold)}
+.btn-ghost{border:2px solid var(--orange);color:var(--text);border-radius:50px;padding:.75rem 1.7rem;font-weight:600;transition:.3s;display:inline-block;background:transparent}
+.btn-ghost:hover{background:var(--orange);color:#fff}
+/* 5. Navbar (glass) */
+.joy-nav{position:fixed;inset:0 0 auto;z-index:1030;backdrop-filter:blur(14px);background:rgba(21,13,9,.55);border-bottom:1px solid var(--line);transition:.3s}
+[data-theme=light] .joy-nav{background:rgba(255,248,240,.75)}
+.joy-nav.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.joy-nav .nav-link{color:var(--text);border-radius:50px;padding:.5rem 1.1rem!important;transition:.3s}
+.joy-nav .nav-link.active,.joy-nav .nav-link:hover{background:var(--grad);color:#fff}
+.brand{font-weight:700;font-size:1.5rem;color:var(--orange);line-height:1}.brand small{display:block;font-size:.8rem;color:var(--amber)}
+.theme-toggle,.nav-burger{border:1px solid var(--line);background:var(--bg2);color:var(--amber);border-radius:50px;width:44px;height:44px}
+.offcanvas{background:var(--bg);color:var(--text)}
+/* 6. Hero — dish image goes in assets/images/hero.jpg; gradient shows until then */
+.hero{min-height:100vh;display:flex;align-items:center;padding:7rem 0 5rem;position:relative;overflow:hidden;color:#fbefe3;
+background:linear-gradient(90deg,#150d09 35%,rgba(21,13,9,.3)),url(../images/hero.jpg) center/cover,radial-gradient(circle at 80% 30%,rgba(244,119,22,.55),transparent 55%),#150d09}
+.hero h1{font-size:clamp(2.6rem,7vw,5rem);font-weight:800}.hero h1 span{color:var(--orange);font-style:italic}
+.hero p{color:#c9b4a3;max-width:30rem;font-size:1.15rem}
+.tag{display:inline-block;background:var(--grad);color:#fff;border-radius:50px;padding:.35rem 1rem;font-weight:600}
+.hero-stats{display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:3rem;padding:1rem 1.5rem;border:1px solid rgba(255,170,50,.25);border-radius:var(--r);background:rgba(0,0,0,.4);backdrop-filter:blur(8px);width:fit-content}
+.hero-stats i{color:var(--orange);font-size:1.6rem;margin-right:.6rem}
+.hero .btn-ghost{color:#fbefe3}
+/* 7. Marquee (pure CSS, duplicated track for a seamless loop) */
+.marquee{background:var(--grad);color:#fff;overflow:hidden;padding:.9rem 0;white-space:nowrap}
+.marquee-track{display:inline-flex;gap:2rem;animation:scroll 28s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{font-family:var(--font-head);font-size:clamp(1rem,2.5vw,1.4rem);font-weight:600}
+@keyframes scroll{to{transform:translateX(-50%)}}
+/* 8. Sections, cards */
+section{padding:5rem 0}.alt{background:var(--bg2)}
+.sec-title{font-size:clamp(2rem,4vw,2.8rem);font-weight:700}.sec-sub{color:var(--muted)}
+.card-joy{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;height:100%;transition:transform .3s,box-shadow .3s}
+.card-joy:hover{transform:translateY(-6px);box-shadow:0 14px 40px rgba(244,119,22,.25)}
+.card-img{aspect-ratio:4/3;overflow:hidden;background:var(--grad)}/* clips the zoomed image */
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card-joy:hover .card-img img{transform:scale(1.12)}
+.price{color:var(--orange);font-weight:700;font-size:1.15rem}
+.badge-ok{background:#1e9e5a}.badge-no{background:#c0392b}
+.filter-btn{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:50px;padding:.45rem 1.2rem;margin:.2rem;transition:.3s}
+.filter-btn.active,.filter-btn:hover{background:var(--grad);color:#fff;border-color:transparent}
+.page-link{background:var(--card);color:var(--text);border-color:var(--line)}.active>.page-link{background:var(--orange);border-color:var(--orange)}
+#menuGrid{transition:opacity .25s}#menuGrid.fading{opacity:0}
+.cta-band{background:linear-gradient(120deg,rgba(39,23,17,.85),rgba(244,119,22,.85)),url(../images/reservation.jpg) center/cover,var(--grad);color:#fff;border-radius:24px;padding:4rem 2rem;text-align:center}
+/* 9. Forms */
+.form-control,.form-select{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:.75rem 1rem}
+.form-control:focus,.form-select:focus{background:var(--card);color:var(--text);border-color:var(--orange);box-shadow:0 0 0 .25rem rgba(244,119,22,.25)}
+.invalid-msg{color:#ff6b5e;font-size:.85rem;min-height:1.1rem}
+/* 10. Footer (always dark, matching the design) */
+.footer{background:linear-gradient(180deg,#150d09,#0d0705);color:#fbefe3;padding:5rem 0 0;border-top:4px solid var(--orange)}
+.footer h5{font-style:italic;border-left:4px solid var(--orange);padding-left:.7rem;margin-bottom:1.2rem}
+.footer a{color:#e8d5c4;transition:.3s}.footer a:hover{color:var(--amber)}
+.footer li{margin-bottom:.6rem}.footer li i{color:var(--orange);margin-right:.6rem}
+.social a{display:inline-grid;place-items:center;width:42px;height:42px;border:1px solid var(--orange);border-radius:50%;margin-right:.4rem}
+.social a:hover{background:var(--orange);color:#fff}
+.footer-bar{border-top:1px solid rgba(255,170,50,.25);margin-top:3rem;padding:1.2rem 0}
+.footer-bar a.credit{color:var(--orange);text-decoration:underline}
+.to-top{width:44px;height:44px;border-radius:50%;border:1px solid var(--orange);background:transparent;color:var(--orange)}
+.map-frame{border:0;width:100%;height:100%;min-height:260px;border-radius:var(--r)}
+/* 11. Toasts, preloader, skeleton, reveal */
+#toastBox{position:fixed;top:1rem;right:1rem;z-index:2000;display:grid;gap:.5rem;max-width:calc(100vw - 2rem)}
+.toast-joy{color:#fff;padding:.8rem 1.2rem;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.3);animation:tin .35s;transition:.3s}
+.toast-joy.success{background:#1e9e5a}.toast-joy.error{background:#d64545}.toast-joy.info{background:#2f7bd8}
+@keyframes tin{from{opacity:0;transform:translateX(40px)}}
+.toast-joy.out{opacity:0;transform:translateX(40px)}
+#preloader{position:fixed;inset:0;z-index:3000;background:#150d09;display:grid;place-items:center;transition:opacity .5s,visibility .5s;text-align:center;color:var(--orange)}
+#preloader.done{opacity:0;visibility:hidden}
+.ring{width:70px;height:70px;border-radius:50%;border:5px solid rgba(255,170,50,.2);border-top-color:var(--orange);animation:spin 1s linear infinite;margin:1rem auto 0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.skeleton{background:linear-gradient(90deg,var(--card) 25%,var(--bg2) 50%,var(--card) 75%);background-size:200% 100%;animation:shine 1.3s infinite;border-radius:var(--r);height:320px}
+@keyframes shine{to{background-position:-200% 0}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+/* 12. Success page */
+.success-wrap{min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 50% 0,var(--orange),var(--brown) 70%);padding:2rem;color:#fff;position:relative;overflow:hidden}
+.check{width:96px;height:96px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:2.6rem;margin:auto;animation:pop .6s}
+@keyframes pop{from{transform:scale(0)}70%{transform:scale(1.15)}}
+.dot{position:absolute;top:0;width:8px;height:8px;border-radius:50%;background:var(--gold);animation:fall linear infinite;opacity:.8}
+@keyframes fall{from{transform:translateY(-10vh)}to{transform:translateY(110vh)}}
+[data-theme=light] .btn-close-white{filter:none}
+
+/* ===== 13. POLISH LAYER — responsive type, mobile buttons, preloader, offcanvas, premium touches ===== */
+/* Fluid base size: rem-based Bootstrap text scales with the screen */
+html{font-size:15px}@media(min-width:576px){html{font-size:16px}}
+section{padding:clamp(3rem,8vw,5.5rem) 0}
+.sec-title{font-size:clamp(1.7rem,5.5vw,2.8rem);position:relative;padding-bottom:.9rem;line-height:1.15}
+.sec-title::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:4px;border-radius:4px;background:var(--grad)}/* accent underline, echoes the swoosh in the hero design */
+.text-center .sec-title::after,.sec-title.text-center::after{left:50%;transform:translateX(-50%)}
+.cta-band .sec-title::after{background:#fff}
+/* Buttons: refined everywhere, smaller on phones */
+.btn-joy,.btn-ghost{font-size:.95rem;letter-spacing:.2px;line-height:1.3;text-align:center}
+.btn-joy{box-shadow:0 8px 22px rgba(244,119,22,.28)}
+@media(max-width:575.98px){.btn-joy,.btn-ghost{font-size:.85rem;padding:.55rem 1.15rem}.form-control,.form-select{padding:.6rem .85rem;font-size:.92rem}.form-label{font-size:.85rem;margin-bottom:.25rem}
+ .brand{font-size:1.25rem}.theme-toggle,.nav-burger{width:38px;height:38px;font-size:.9rem}#toastBox{left:1rem;right:1rem;top:.8rem}.card-joy h3{font-size:1rem}}
+.brand i{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--grad);color:#fff;font-size:.8rem;margin-right:.55rem;vertical-align:middle}
+.joy-nav .nav-link{font-size:.92rem;font-weight:500}
+/* Hero */
+.hero h1{font-size:clamp(2.1rem,9vw,4.8rem);line-height:1.08}
+.hero p{font-size:clamp(.95rem,2.6vw,1.15rem)}
+.hero::before{content:"";position:absolute;width:560px;height:560px;right:-140px;top:-100px;border-radius:50%;background:radial-gradient(circle,rgba(255,170,50,.38),transparent 65%);animation:floaty 9s ease-in-out infinite}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:120px;background:linear-gradient(transparent,rgba(21,13,9,.85))}
+.hero .container{position:relative;z-index:1}
+@keyframes floaty{50%{transform:translateY(28px)}}
+.hero-stats>div{display:grid;grid-template-columns:auto 1fr;column-gap:.7rem;align-items:center;font-size:.85rem;color:#c9b4a3}
+.hero-stats i{grid-row:1/3;margin:0}.hero-stats b{color:#fff;font-size:.95rem}
+@media(max-width:575.98px){.hero-stats{grid-template-columns:1fr;display:grid;gap:.7rem;padding:.8rem 1rem;width:100%;margin-top:2rem}.hero-stats i{font-size:1.15rem}.tag{font-size:.8rem}}
+/* Cards: category chip over the image */
+.card-img{position:relative}
+.chip{position:absolute;top:.7rem;left:.7rem;background:rgba(21,13,9,.72);color:var(--gold);backdrop-filter:blur(6px);border-radius:50px;padding:.2rem .75rem;font-size:.72rem;font-weight:600}
+.card-joy{box-shadow:0 2px 12px rgba(0,0,0,.12)}
+/* Footer wave (matches the design picture) */
+.footer-wave{height:clamp(40px,7vw,80px);margin-bottom:-1px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g'%3E%3Cstop offset='0' stop-color='%23F47716'/%3E%3Cstop offset='1' stop-color='%23FFAA32'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M0 38C240 88 480 0 720 28S1200 8 1440 38V80H0Z'/%3E%3Cpath fill='%23150d09' d='M0 56C240 96 480 20 720 46S1200 30 1440 56V80H0Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.footer-wave.on-alt{background-color:var(--bg2)}
+.footer{border-top:0;padding-top:2.5rem}
+.footer h5{font-size:1.15rem}
+@media(max-width:575.98px){.footer-bar{font-size:.8rem}}
+/* Preloader — branded mark, spinning gradient ring, progress sweep */
+#preloader{background:radial-gradient(circle at 50% 42%,rgba(244,119,22,.3),transparent 55%),#150d09}
+.pl-inner{text-align:center;animation:plIn .8s both}
+@keyframes plIn{from{opacity:0;transform:translateY(14px)}}
+.pl-orb{position:relative;width:104px;height:104px;margin:0 auto}
+.pl-orb::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 25%,var(--orange),var(--gold));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));animation:spin 1.3s linear infinite}
+.pl-orb::after{content:"";position:absolute;inset:12px;border-radius:50%;background:rgba(255,170,50,.08);border:1px solid rgba(255,170,50,.25)}
+.pl-orb i{position:absolute;inset:0;z-index:1;display:grid;place-items:center;font-size:2rem;color:var(--amber);animation:pulse 1.6s ease-in-out infinite;margin:0;width:auto;height:auto;background:none}
+@keyframes pulse{50%{transform:scale(.88);opacity:.8}}
+.pl-word{font-family:var(--font-head);font-size:2.3rem;font-weight:800;color:#fff;line-height:1;margin-top:1.3rem}
+.pl-word small{display:block;font-size:1rem;font-weight:600;color:var(--amber);margin-top:.35rem;letter-spacing:.12em}
+.pl-bar{width:150px;height:3px;border-radius:3px;background:rgba(255,170,50,.2);overflow:hidden;margin:1.4rem auto .9rem}
+.pl-bar::after{content:"";display:block;height:100%;width:45%;border-radius:3px;background:var(--grad);animation:sweep 1.2s ease-in-out infinite}
+@keyframes sweep{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+.pl-tag{font-style:italic;color:#c9b4a3;font-size:.85rem}
+/* Offcanvas menus (public + admin) */
+.oc-panel{width:min(86vw,340px)!important;background:linear-gradient(180deg,rgba(244,119,22,.16),transparent 38%),var(--bg);border-left:1px solid var(--line)}
+#cpMenu{width:min(84vw,300px);background:linear-gradient(180deg,rgba(244,119,22,.2),transparent 42%),#150d09;color:#fbefe3;border-right:1px solid rgba(255,170,50,.25)}
+.oc-head{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.2rem;border-bottom:1px solid var(--line)}
+.oc-nav{display:grid;gap:.35rem}
+.oc-link{display:flex;align-items:center;gap:.9rem;padding:.7rem .9rem;border-radius:14px;color:var(--text);font-weight:500;font-size:.95rem;transition:.25s}
+.oc-link>i:first-child,.cp-side a i,.cp-side .cp-link i{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(244,119,22,.14);color:var(--orange);font-size:.85rem;flex:none;transition:.25s}
+.oc-link:hover{background:rgba(244,119,22,.1);color:var(--text)}
+.oc-link.active,.cp-side a.active{background:var(--grad);color:#fff;box-shadow:0 8px 20px rgba(244,119,22,.3)}
+.oc-link.active>i:first-child,.cp-side a.active i{background:rgba(255,255,255,.22);color:#fff}
+.oc-arrow{font-size:.7rem;opacity:.5;margin-left:auto}
+.oc-foot{margin-top:auto;padding:1.1rem 1.2rem;border-top:1px solid var(--line);display:grid;gap:.8rem;font-size:.85rem;color:var(--muted)}
+.oc-panel .oc-foot{padding:1.1rem 0 0}
+#cpMenu .oc-foot{color:#c9b4a3;border-color:rgba(255,170,50,.2)}
+/* Brand: icon beside a stacked wordmark */
+.brand{display:inline-grid;grid-template-columns:auto auto;column-gap:.6rem;align-items:center;justify-content:start}
+.brand i{grid-row:1/3;margin:0}.brand small{grid-column:2;margin-top:2px}
+.oc-panel .social a{color:var(--text)}
+/* Links, chips, mobile card/hero sizing, tighter form errors */
+a{color:var(--orange)}
+.chip{text-transform:capitalize}
+.invalid-msg{min-height:.9rem;margin-top:.15rem;font-size:.8rem}
+@media(max-width:575.98px){.card-img{aspect-ratio:16/9}.hero{min-height:auto;padding:6.5rem 0 3.5rem}}
+.form-control::placeholder{color:var(--muted);opacity:.75}
+section[id]{scroll-margin-top:64px}/* anchored sections are not hidden under the fixed navbar */
+[data-theme=light] .brand small{color:#c2590a}
+.row.card-joy{margin-left:0;margin-right:0}/* form cards no longer bleed past the container on phones */
