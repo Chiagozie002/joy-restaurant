@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Menu | Joy Restaurant</title>
+<meta name="description" content="Browse the Joy Restaurant menu: search meals, filter by category and see prices in naira.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" rel="stylesheet">
+<link href="../assets/css/style.css" rel="stylesheet">
+<link href="css/emenu.css" rel="stylesheet">
+</head>
+<body>
+<!-- No preloader here by design; skeleton loaders are used while data loads -->
+<header class="em-head"><div class="container d-flex justify-content-between align-items-center">
+  <div><div class="brand fs-2"><i class="fa-solid fa-utensils me-2"></i>Joy Restaurant</div><div class="fst-italic">Good Food. Great Mood. — Digital Menu</div></div>
+  <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-lightbulb"></i></button></div></header>
+<main class="container em-tools pb-5">
+  <div class="em-search"><i class="fa-solid fa-magnifying-glass"></i>
+    <input id="search" class="form-control" type="search" placeholder="Search meals…" aria-label="Search meals"></div>
+  <div class="em-filters" id="filters" aria-label="Categories"></div>
+  <!-- Phones: cards -->
+  <div class="em-list-cards" id="cardList"></div>
+  <!-- Tablets and up: table -->
+  <div class="em-list-table table-responsive"><table class="table em-table align-middle">
+    <thead><tr><th></th><th>Meal</th><th>Description</th><th>Category</th><th>Price</th><th>Status</th></tr></thead><tbody id="tableBody"></tbody></table></div>
+  <p id="empty" class="text-center sec-sub py-4" hidden>No meals match your search. Try another word or category.</p>
+  <ul class="pagination justify-content-center mt-3" id="pager"></ul>
+</main>
+<script src="../assets/js/data.js"></script><script src="../assets/js/api.js"></script><script src="js/emenu.js"></script>
+</body></html>

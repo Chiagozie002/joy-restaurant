@@ -1,0 +1,14 @@
+/* ===== E-MENU STYLES — reuses the brand tokens, themes and scrollbar from ../assets/css/style.css ===== */
+.em-head{background:linear-gradient(135deg,#150d09,var(--brown) 60%,#7a3a0c);color:#fbefe3;padding:1.5rem 0 3.5rem;border-bottom:4px solid var(--orange)}
+.em-tools{margin-top:-2rem}/* search box overlaps the header */
+.em-search{position:relative}.em-search i{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--orange)}
+.em-search input{padding-left:2.8rem;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.em-filters{display:flex;gap:.4rem;overflow-x:auto;padding:.8rem 0;white-space:nowrap}/* scrolls sideways on small phones */
+.em-table{--bs-table-bg:var(--card);--bs-table-color:var(--text);--bs-table-border-color:var(--line);border-radius:var(--r);overflow:hidden}
+.em-table th{background:var(--grad);color:#fff;border:0}
+.em-thumb{width:64px;height:48px;object-fit:cover;border-radius:10px;background:var(--grad)}
+.em-card{display:flex;gap:.8rem;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:.7rem;margin-bottom:.8rem}
+.em-card .em-thumb{width:84px;height:84px;flex:none}
+.em-skel{height:84px;margin-bottom:.8rem}
+/* Cards on phones, table from 768px up */
+.em-list-table{display:none}@media(min-width:768px){.em-list-table{display:block}.em-list-cards{display:none}}
