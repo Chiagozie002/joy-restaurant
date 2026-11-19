@@ -6,14 +6,14 @@ async function load() {
   body.innerHTML = '<tr><td colspan="6"><div class="skeleton" style="height:200px"></div></td></tr>';   // table skeleton
   try { all = await AdminAPI.getProducts(); } catch { body.innerHTML = '<tr><td colspan="6">Could not load products.</td></tr>'; return; }
   const cats = [...(() => { const m = new Map(); all.forEach(p => { const k = p.category.toLowerCase(); if (!m.has(k)) m.set(k, p.category); }); return m.entries(); })()];         // unique, case-insensitive
-  document.getElementById("filters").innerHTML = `<button class="filter-btn ${cat==="all"?"active":""}" data-c="all">All</button>` + cats.map(([k, l]) => `<button class="filter-btn ${cat===k?"active":""}" data-c="${k}">${l}</button>`).join("");
+  document.getElementById("filters").innerHTML = `<button class="filter-btn ${cat==="all"?"active":""}" data-c="all">All</button>` + cats.map(([k, l]) => `<button class="filter-btn ${cat===k?"active":""}" data-c="${esc(k)}">${esc(l)}</button>`).join("");
   render();
 }
 function render() {
   const list = all.filter(p => (cat === "all" || p.category.toLowerCase() === cat) && p.name.toLowerCase().includes(q));
   const pages = Math.max(1, Math.ceil(list.length / PER)); page = Math.min(page, pages);
-  body.innerHTML = list.slice((page-1)*PER, page*PER).map(p => `<tr><td><img class="em-thumb" style="width:56px;height:42px;object-fit:cover;border-radius:8px;background:var(--grad)" src="${imgSrc(p)}" alt="" onerror="this.style.opacity='0'"></td>
-    <td class="fw-bold">${p.name}</td><td>${p.category}</td><td class="price">${naira(p.price)}</td>
+  body.innerHTML = list.slice((page-1)*PER, page*PER).map(p => `<tr><td><img class="em-thumb" style="width:56px;height:42px;object-fit:cover;border-radius:8px;background:var(--grad)" src="${esc(imgSrc(p))}" alt="" onerror="this.style.opacity='0'"></td>
+    <td class="fw-bold">${esc(p.name)}</td><td>${esc(p.category)}</td><td class="price">${naira(p.price)}</td>
     <td><span class="badge ${p.available ? "badge-ok" : "badge-no"}">${p.available ? "Available" : "Sold out"}</span></td>
     <td class="text-nowrap"><button class="btn btn-sm btn-outline-warning" data-edit="${p.id}"><i class="fa-solid fa-pen"></i></button>
     <button class="btn btn-sm btn-outline-danger" data-del="${p.id}"><i class="fa-solid fa-trash"></i></button></td></tr>`).join("") || '<tr><td colspan="6" class="text-center sec-sub py-4">No products found.</td></tr>';

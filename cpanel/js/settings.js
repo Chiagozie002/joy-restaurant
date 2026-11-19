@@ -1,6 +1,7 @@
 /* ===== WEBSITE SETTINGS: one form, four groups. PHP saves these to a settings table; the public site will read them. ===== */
 const sf = document.getElementById("settingsForm");
-(async () => { const s = await AdminAPI.getSettings(); Object.keys(s).forEach(k => { if (sf.elements[k]) sf.elements[k].value = s[k]; }); })();
+(async () => { const s = await AdminAPI.getSettings(); Object.keys(s).forEach(k => { if (sf.elements[k]) sf.elements[k].value = s[k]; });
+  if (s.logo) { const lp = document.getElementById("logoPrev"); lp.src = "../" + s.logo; lp.hidden = false; } })();
 bindPreview(sf.elements.logo, document.getElementById("logoPrev"));
 sf.addEventListener("submit", async e => {
   e.preventDefault(); const d = Object.fromEntries(new FormData(sf)); delete d.logo; const err = {};
@@ -15,10 +16,19 @@ sf.addEventListener("submit", async e => {
   if (!/^\S+@\S+\.\S+$/.test(d.email)) err.email = "Enter a valid email address.";
   if (!d.open || !d.close || d.open >= d.close) err.close = "Closing time must be after opening time.";
   ["facebook","x","instagram","youtube"].forEach(k => { if (d[k] && !/^https?:\/\/\S+$/.test(d[k])) err[k] = "Enter a full link starting with https://"; });
+  if (d.mapUrl && !/^https:\/\/(www\.)?google\.[a-z.]+\/maps/i.test(d.mapUrl)) err.mapUrl = "Use the Google Maps embed link (https://www.google.com/maps/embed?...).";
   if (d.seoTitle.trim().length < 5 || d.seoTitle.length > 60) err.seoTitle = "Title must be 5–60 characters.";
   if (d.seoDescription.trim().length < 20 || d.seoDescription.length > 160) err.seoDescription = "Description must be 20–160 characters.";
   if (file && (!IMG_TYPES.includes(file.type) || file.size > MAX_IMG)) err.logo = "Use a JPG, PNG or WEBP logo up to 2MB.";
   showErrors(sf, err); if (Object.keys(err).length) return showToast("Please fix the highlighted fields.", "error");
   const btn = sf.querySelector("[type=submit]"); if (btn.disabled) return; btn.disabled = true; btn.textContent = "Saving…";
-  const r = await AdminAPI.updateSettings(d); showToast(r.message, r.success ? "success" : "error"); btn.disabled = false; btn.textContent = "Save settings";
+  if (file) d.logoData = await readFile(file);                       // new logo goes up as a data URL; PHP checks the real file
+  const r = await AdminAPI.updateSettings(d); if (!r.success) showErrors(sf, r.errors || {}); showToast(r.message, r.success ? "success" : "error"); btn.disabled = false; btn.textContent = "Save settings";
 });
+
+/* Send a test email so you can confirm config/email.php is correct */
+document.getElementById("testMail").onclick = async e => {
+  const b = e.currentTarget; b.disabled = true;
+  try { const r = await AdminAPI.sendTestEmail(); showToast(r.message, r.success ? "success" : "error"); } catch { showToast("Could not reach the server.", "error"); }
+  b.disabled = false;
+};

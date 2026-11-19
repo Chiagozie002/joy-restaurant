@@ -2,7 +2,7 @@
 const pf = document.getElementById("profileForm"), pw = document.getElementById("pwForm");
 const PHONE = /^(\+?234|0)[789][01]\d{8}$/;
 (async () => { const p = await AdminAPI.getProfile(); ["name","email","phone","title"].forEach(k => pf.elements[k].value = p[k] || "");
-  if (p.avatar) { const a = document.getElementById("avatarPrev"); a.src = p.avatar; a.hidden = false; } })();
+  if (p.avatar) { const a = document.getElementById("avatarPrev"); a.src = p.avatar.startsWith("data:") ? p.avatar : "../" + p.avatar; a.hidden = false; } })();
 bindPreview(pf.elements.image, document.getElementById("avatarPrev"));
 const lock = (btn, on, label) => { btn.disabled = on; btn.innerHTML = on ? '<span class="spinner-border spinner-border-sm"></span> Saving…' : label; };
 pf.addEventListener("submit", async e => {

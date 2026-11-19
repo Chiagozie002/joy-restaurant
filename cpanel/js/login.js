@@ -19,6 +19,6 @@ lf.addEventListener("submit", async e => {
   try {
     const r = await AdminAPI.login({identifier:id, password:d.password});
     if (!r.success) throw new Error(r.message);
-    showToast(r.message, "success"); setTimeout(() => location.href = "index.html", 600);
+    showToast(r.message, "success"); setTimeout(() => location.href = "index.php", 600);
   } catch (x) { showToast(x.message || "Network error. Try again.", "error"); btn.disabled = false; btn.textContent = "Log in"; }
 });

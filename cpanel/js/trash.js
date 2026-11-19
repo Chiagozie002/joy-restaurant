@@ -3,7 +3,7 @@ const box = document.getElementById("trashRows"); let purgeId = null, items = []
 async function load() {
   box.innerHTML = '<tr><td colspan="4"><div class="skeleton" style="height:140px"></div></td></tr>';
   try { items = await AdminAPI.getTrash(); } catch { box.innerHTML = '<tr><td colspan="4">Could not load Trash.</td></tr>'; return; }
-  box.innerHTML = items.map(p => `<tr><td class="fw-bold">${p.name}</td><td>${p.category}</td><td class="price">${naira(p.price)}</td>
+  box.innerHTML = items.map(p => `<tr><td class="fw-bold">${esc(p.name)}</td><td>${esc(p.category)}</td><td class="price">${naira(p.price)}</td>
     <td class="text-nowrap"><button class="btn btn-sm btn-outline-success" data-restore="${p.id}"><i class="fa-solid fa-rotate-left"></i> Restore</button>
     <button class="btn btn-sm btn-outline-danger" data-purge="${p.id}"><i class="fa-solid fa-xmark"></i> Delete forever</button></td></tr>`).join("") ||
     '<tr><td colspan="4" class="text-center sec-sub py-4">Trash is empty. Deleted products appear here.</td></tr>';

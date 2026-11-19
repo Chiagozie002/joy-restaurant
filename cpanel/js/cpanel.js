@@ -1,3 +1,4 @@
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));   // escape text before it goes into innerHTML (stops script injection)
 /* ===== CPANEL SHARED SCRIPT: theme, toast, active link, logout confirmation ===== */
 /* --- Theme (same key as the public site). Login page is dark-only so it never loads this toggle. --- */
 function applyTheme(t) {
@@ -16,7 +17,7 @@ function showToast(msg, type = "info") {
 }
 
 /* --- Highlight the sidebar link that matches the current page --- */
-const here = location.pathname.split("/").pop() || "index.html";
+const here = location.pathname.split("/").pop() || "index.php";
 document.querySelectorAll(".cp-side a[href]").forEach(a => a.classList.toggle("active", a.getAttribute("href") === here));
 
 /* --- Logout: confirm first, then call the API --- */
