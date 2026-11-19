@@ -1,18 +1,10 @@
 <?php
-/**
- * ajax/add-product.php  —  PLACEHOLDER (not implemented)
- *
- * Method:      POST
- * Access:      admin
- * Request:     multipart: name, description, price, category, available, image file + CSRF
- * Success:     {"success": true, "message": "...", "data": {id}}
- * Error:       {"success": false, "message": "...", "errors": {"field": "reason"}}  (use 400/401/403/404/422/500 correctly)
- * Validate:    name 2+, description 10+, price > 0, category 2+, image JPG/PNG/WEBP <= 2MB, check real MIME with finfo
- * Database:    move upload to a safe folder with a random name; INSERT product
- *
- * Every endpoint must: send Content-Type application/json, use prepared statements, escape output,
- * check the admin session + CSRF token where Access says admin, and keep secrets in environment config.
- */
-header('Content-Type: application/json');
-http_response_code(501);
-echo json_encode(['success' => false, 'message' => 'Not implemented yet.', 'errors' => new stdClass()]);
+require __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/_product_common.php';
+/** POST JSON {name, description, price, category, available, image(data URL)} + CSRF (admin) -> INSERT product */
+require_method('POST'); require_csrf(); require_admin();
+$p = product_input(request_json(), true);
+try { $path = save_image_data_url($p['image'], 'products'); } catch (InvalidArgumentException $e) { fail_validation(['image' => $e->getMessage()]); }
+db()->prepare('INSERT INTO products (name, description, price, category, image, available) VALUES (?,?,?,?,?,?)')
+    ->execute([$p['name'], $p['description'], $p['price'], $p['category'], $path, $p['available']]);
+json_out(true, 'Product added.', product_row((int) db()->lastInsertId()), [], 201);

@@ -1,18 +1,7 @@
 <?php
-/**
- * ajax/get-messages.php  —  PLACEHOLDER (not implemented)
- *
- * Method:      GET
- * Access:      admin
- * Request:     optional q, read
- * Success:     {"success": true, "message": "...", "data": array of {id,name,email,subject,message,date,read}}
- * Error:       {"success": false, "message": "...", "errors": {"field": "reason"}}  (use 400/401/403/404/422/500 correctly)
- * Validate:    filters whitelisted
- * Database:    SELECT messages ORDER BY date DESC
- *
- * Every endpoint must: send Content-Type application/json, use prepared statements, escape output,
- * check the admin session + CSRF token where Access says admin, and keep secrets in environment config.
- */
-header('Content-Type: application/json');
-http_response_code(501);
-echo json_encode(['success' => false, 'message' => 'Not implemented yet.', 'errors' => new stdClass()]);
+require __DIR__ . '/../includes/bootstrap.php';
+/** GET (admin) -> contact messages, newest first: {id, name, email, subject, message, date, read} */
+require_method('GET'); require_admin();
+$rows = db()->query('SELECT id, name, email, subject, message, is_read, created_at FROM messages ORDER BY created_at DESC, id DESC')->fetchAll();
+json_out(true, 'Messages loaded successfully.', array_map(fn($m) => ['id' => (int) $m['id'], 'name' => $m['name'], 'email' => $m['email'],
+    'subject' => $m['subject'], 'message' => $m['message'], 'date' => substr($m['created_at'], 0, 10), 'read' => (bool) $m['is_read']], $rows));

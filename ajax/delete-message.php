@@ -1,18 +1,9 @@
 <?php
-/**
- * ajax/delete-message.php  —  PLACEHOLDER (not implemented)
- *
- * Method:      POST
- * Access:      admin
- * Request:     JSON {id} or {all:true} + CSRF
- * Success:     {"success": true, "message": "...", "data": {}}
- * Error:       {"success": false, "message": "...", "errors": {"field": "reason"}}  (use 400/401/403/404/422/500 correctly)
- * Validate:    id exists; all=true needs explicit flag
- * Database:    DELETE one message, or all messages
- *
- * Every endpoint must: send Content-Type application/json, use prepared statements, escape output,
- * check the admin session + CSRF token where Access says admin, and keep secrets in environment config.
- */
-header('Content-Type: application/json');
-http_response_code(501);
-echo json_encode(['success' => false, 'message' => 'Not implemented yet.', 'errors' => new stdClass()]);
+require __DIR__ . '/../includes/bootstrap.php';
+/** POST JSON {id} or {all:true} + CSRF (admin) -> deletes one message, or every message when all is true */
+require_method('POST'); require_csrf(); require_admin();
+$in = request_json();
+if (($in['all'] ?? false) === true) { db()->exec('DELETE FROM messages'); json_out(true, 'All messages deleted.', []); }
+$st = db()->prepare('DELETE FROM messages WHERE id = ?'); $st->execute([(int) ($in['id'] ?? 0)]);
+if (!$st->rowCount()) json_out(false, 'Message not found.', null, [], 404);
+json_out(true, 'Message deleted.', []);

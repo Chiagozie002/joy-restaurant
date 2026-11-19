@@ -1,18 +1,10 @@
 <?php
-/**
- * ajax/get-reservations.php  —  PLACEHOLDER (not implemented)
- *
- * Method:      GET
- * Access:      admin
- * Request:     optional filters: q, date, status
- * Success:     {"success": true, "message": "...", "data": array of {ref,name,email,phone,guests,date,time,status}}
- * Error:       {"success": false, "message": "...", "errors": {"field": "reason"}}  (use 400/401/403/404/422/500 correctly)
- * Validate:    filters are whitelisted
- * Database:    SELECT reservations ORDER BY created_at DESC (prepared)
- *
- * Every endpoint must: send Content-Type application/json, use prepared statements, escape output,
- * check the admin session + CSRF token where Access says admin, and keep secrets in environment config.
- */
-header('Content-Type: application/json');
-http_response_code(501);
-echo json_encode(['success' => false, 'message' => 'Not implemented yet.', 'errors' => new stdClass()]);
+require __DIR__ . '/../includes/bootstrap.php';
+/** GET (admin) -> all reservations, newest first: {ref, name, email, phone, guests, date, time, status, requests, created} */
+require_method('GET'); require_admin();
+$rows = db()->query("SELECT reference, name, email, phone, guests, reservation_date, reservation_time, special_requests, status, created_at FROM reservations ORDER BY created_at DESC, id DESC")->fetchAll();
+json_out(true, 'Reservations loaded successfully.', array_map(fn($r) => [
+    'ref' => $r['reference'], 'name' => $r['name'], 'email' => $r['email'], 'phone' => $r['phone'], 'guests' => (int) $r['guests'],
+    'date' => $r['reservation_date'], 'time' => substr($r['reservation_time'], 0, 5), 'status' => $r['status'],
+    'requests' => $r['special_requests'], 'created' => $r['created_at'],
+], $rows));

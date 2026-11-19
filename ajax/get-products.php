@@ -1,18 +1,15 @@
 <?php
+require __DIR__ . '/../includes/bootstrap.php';
 /**
- * ajax/get-products.php  —  PLACEHOLDER (not implemented)
- *
- * Method:      GET
- * Access:      public
- * Request:     optional ?deleted=1 (admin only)
- * Success:     {"success": true, "message": "...", "data": array of {id,name,description,price,category,image,available}}
- * Error:       {"success": false, "message": "...", "errors": {"field": "reason"}}  (use 400/401/403/404/422/500 correctly)
- * Validate:    deleted=1 requires admin session
- * Database:    SELECT products WHERE deleted=0 (or 1). Used by homepage, e-menu and admin
- *
- * Every endpoint must: send Content-Type application/json, use prepared statements, escape output,
- * check the admin session + CSRF token where Access says admin, and keep secrets in environment config.
+ * GET  (public)            -> active products for the homepage and e-menu
+ * GET ?deleted=1 (admin)   -> products in Trash
+ * Each product: {id, name, description, price, category, image, available}
  */
-header('Content-Type: application/json');
-http_response_code(501);
-echo json_encode(['success' => false, 'message' => 'Not implemented yet.', 'errors' => new stdClass()]);
+require_method('GET');
+$deleted = isset($_GET['deleted']) && $_GET['deleted'] === '1';
+if ($deleted) require_admin();
+$st = db()->prepare('SELECT id, name, description, price, category, image, available FROM products WHERE is_deleted = ? ORDER BY id DESC');
+$st->execute([$deleted ? 1 : 0]);
+$rows = array_map(fn($p) => ['id' => (int) $p['id'], 'name' => $p['name'], 'description' => $p['description'], 'price' => (float) $p['price'],
+    'category' => $p['category'], 'image' => $p['image'], 'available' => (bool) $p['available']], $st->fetchAll());
+json_out(true, 'Products loaded successfully.', $rows);

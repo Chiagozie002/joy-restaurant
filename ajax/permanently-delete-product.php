@@ -1,18 +1,11 @@
 <?php
-/**
- * ajax/permanently-delete-product.php  —  PLACEHOLDER (not implemented)
- *
- * Method:      POST
- * Access:      admin
- * Request:     JSON {id} + CSRF
- * Success:     {"success": true, "message": "...", "data": {}}
- * Error:       {"success": false, "message": "...", "errors": {"field": "reason"}}  (use 400/401/403/404/422/500 correctly)
- * Validate:    id exists and is already in Trash
- * Database:    DELETE FROM products; delete the image file
- *
- * Every endpoint must: send Content-Type application/json, use prepared statements, escape output,
- * check the admin session + CSRF token where Access says admin, and keep secrets in environment config.
- */
-header('Content-Type: application/json');
-http_response_code(501);
-echo json_encode(['success' => false, 'message' => 'Not implemented yet.', 'errors' => new stdClass()]);
+require __DIR__ . '/../includes/bootstrap.php';
+/** POST JSON {id} + CSRF (admin) -> erases a product that is already in Trash, plus its uploaded image */
+require_method('POST'); require_csrf(); require_admin();
+$id = (int) (request_json()['id'] ?? 0);
+$st = db()->prepare('SELECT image FROM products WHERE id = ? AND is_deleted = 1'); $st->execute([$id]);
+$row = $st->fetch();
+if (!$row) json_out(false, 'Only products in Trash can be permanently deleted.', null, [], 404);
+db()->prepare('DELETE FROM products WHERE id = ? AND is_deleted = 1')->execute([$id]);
+delete_upload($row['image']);
+json_out(true, 'Product permanently deleted.', []);

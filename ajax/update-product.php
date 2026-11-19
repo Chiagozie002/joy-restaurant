@@ -1,18 +1,17 @@
 <?php
-/**
- * ajax/update-product.php  —  PLACEHOLDER (not implemented)
- *
- * Method:      POST
- * Access:      admin
- * Request:     multipart: id + same fields as add (image optional) + CSRF
- * Success:     {"success": true, "message": "...", "data": {}}
- * Error:       {"success": false, "message": "...", "errors": {"field": "reason"}}  (use 400/401/403/404/422/500 correctly)
- * Validate:    same as add; id must exist
- * Database:    UPDATE product; replace and delete old image only if a new one is sent
- *
- * Every endpoint must: send Content-Type application/json, use prepared statements, escape output,
- * check the admin session + CSRF token where Access says admin, and keep secrets in environment config.
- */
-header('Content-Type: application/json');
-http_response_code(501);
-echo json_encode(['success' => false, 'message' => 'Not implemented yet.', 'errors' => new stdClass()]);
+require __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/_product_common.php';
+/** POST JSON {id, name, description, price, category, available, image?(data URL, only when replacing)} + CSRF (admin) -> UPDATE product */
+require_method('POST'); require_csrf(); require_admin();
+$in = request_json(); $id = (int) ($in['id'] ?? 0);
+$old = product_row($id);
+if (!$old) json_out(false, 'Product not found.', null, [], 404);
+$p = product_input($in, false);
+$path = $old['image'];
+if ($p['image'] !== '') {                                   // a new image was sent: validate, save, then remove the old upload
+    try { $path = save_image_data_url($p['image'], 'products'); } catch (InvalidArgumentException $e) { fail_validation(['image' => $e->getMessage()]); }
+    delete_upload($old['image']);
+}
+db()->prepare('UPDATE products SET name=?, description=?, price=?, category=?, image=?, available=? WHERE id=?')
+    ->execute([$p['name'], $p['description'], $p['price'], $p['category'], $path, $p['available'], $id]);
+json_out(true, 'Product updated.', product_row($id));
