@@ -2,6 +2,14 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16.png">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="manifest" href="../assets/images/site.webmanifest">
+<meta name="theme-color" content="#F47716">
+
 <title>Digital Menu | Joy Restaurant</title>
 <meta name="description" content="Browse the Joy Restaurant menu: search meals, filter by category and see prices in naira.">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,700&display=swap" rel="stylesheet">
@@ -13,7 +21,7 @@
 <body>
 <!-- No preloader here by design; skeleton loaders are used while data loads -->
 <header class="em-head"><div class="container d-flex justify-content-between align-items-center">
-  <div><div class="brand fs-2"><i class="fa-solid fa-utensils me-2"></i>Joy Restaurant</div><div class="fst-italic">Good Food. Great Mood. — Digital Menu</div></div>
+  <div><div class="brand fs-2"><i class="fa-solid fa-utensils me-2"></i>Joy Restaurant</div><div class="fst-italic"><span data-setting="tagline">Good Food. Great Mood.</span> — Digital Menu</div></div>
   <button class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-lightbulb"></i></button></div></header>
 <main class="container em-tools pb-5">
   <div class="em-search"><i class="fa-solid fa-magnifying-glass"></i>
@@ -27,5 +35,5 @@
   <p id="empty" class="text-center sec-sub py-4" hidden>No meals match your search. Try another word or category.</p>
   <ul class="pagination justify-content-center mt-3" id="pager"></ul>
 </main>
-<script src="../assets/js/data.js"></script><script src="../assets/js/api.js"></script><script src="js/emenu.js"></script>
+<script src="../assets/js/data.js"></script><script src="../assets/js/api.js"></script><script src="../assets/js/site-settings.js"></script><script src="js/emenu.js"></script>
 </body></html>

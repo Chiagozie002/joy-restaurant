@@ -2,6 +2,14 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+<link rel="manifest" href="assets/images/site.webmanifest">
+<meta name="theme-color" content="#F47716">
+
 <title>Joy Restaurant | Good Food. Great Mood.</title>
 <meta name="description" content="Joy Restaurant serves freshly prepared Nigerian and continental meals in a warm, elegant setting. View our menu and reserve a table.">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,700&display=swap" rel="stylesheet">
@@ -24,45 +32,65 @@
     <button class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button></div>
   <div class="offcanvas-body d-flex flex-column"><nav class="oc-nav"><a class="oc-link active" data-section="home" href="#home"><i class="fa-solid fa-house"></i>Home<i class="fa-solid fa-chevron-right oc-arrow"></i></a><a class="oc-link " data-section="about" href="#about"><i class="fa-solid fa-users"></i>About<i class="fa-solid fa-chevron-right oc-arrow"></i></a><a class="oc-link " data-section="menu" href="#menu"><i class="fa-solid fa-utensils"></i>Menu<i class="fa-solid fa-chevron-right oc-arrow"></i></a><a class="oc-link " data-section="reservation" href="reservation.html"><i class="fa-solid fa-calendar-check"></i>Reservation<i class="fa-solid fa-chevron-right oc-arrow"></i></a><a class="oc-link " data-section="contact" href="#contact"><i class="fa-solid fa-envelope"></i>Contact<i class="fa-solid fa-chevron-right oc-arrow"></i></a></nav>
     <div class="oc-foot"><a class="btn-joy" href="reservation.html">Reserve a table</a>
-      <div><i class="fa-regular fa-clock me-2 text-warning"></i>Mon – Sun: 9AM – 11PM</div><div><i class="fa-solid fa-phone me-2 text-warning"></i>+234 901 234 5678</div>
-      <div class="social"><a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></div></div>
+      <div><i class="fa-regular fa-clock me-2 text-warning"></i><span data-setting="hours">Mon – Sun: 9AM – 11PM</span></div><div><i class="fa-solid fa-phone me-2 text-warning"></i><span data-setting="phone">+234 901 234 5678</span></div>
+      <div class="social"><a href="#" data-social="facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="#" data-social="x" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a><a href="#" data-social="instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="#" data-social="youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div></div></div>
 <!-- END: PUBLIC NAVBAR -->
 
 <main>
 <!-- HERO: put your food photo at assets/images/hero.jpg -->
 <section class="hero" id="home"><div class="container"><div class="row"><div class="col-lg-7">
-  <span class="tag"><i class="fa-solid fa-utensils me-2"></i>Good Food. Great Mood.</span>
+  <span class="tag"><i class="fa-solid fa-utensils me-2"></i><span data-setting="tagline">Good Food. Great Mood.</span></span>
   <h1 class="mt-4">Welcome to <span>Joy</span> Restaurant</h1>
   <p class="my-4">Experience the perfect blend of delicious meals, elegant ambiance and exceptional service.</p>
   <div class="d-flex flex-wrap gap-3"><a href="#menu" class="btn-joy">Explore Menu <i class="fa-solid fa-arrow-right ms-1"></i></a>
   <a href="reservation.html" class="btn-ghost"><i class="fa-solid fa-calendar-check me-2"></i>Make a Reservation</a></div>
   <!-- Demo highlights: replace with real details -->
-  <div class="hero-stats"><div><i class="fa-regular fa-clock"></i><b>Opening Hours</b> Mon – Sun: 9AM – 11PM</div>
+  <div class="hero-stats"><div><i class="fa-regular fa-clock"></i><b>Opening Hours</b> <span data-setting="hours">Mon – Sun: 9AM – 11PM</span></div>
   <div><i class="fa-solid fa-star"></i><b>4.8+ Rating</b> From 10k+ Happy Guests</div>
   <div><i class="fa-solid fa-utensils"></i><b>Delicious Menu</b> A Taste for Everyone</div></div>
-</div></div></div></section>
-<!-- MARQUEE (track is duplicated so the loop is seamless) -->
-<div class="marquee" aria-label="Promotions"><div class="marquee-track"><span>Freshly Prepared, Always Delicious</span><span><i class="fa-solid fa-star"></i></span><span>Taste the Joy in Every Bite</span><span><i class="fa-solid fa-star"></i></span><span>Good Food. Great Mood.</span><span><i class="fa-solid fa-star"></i></span><span>Made with Love, Served with Joy</span><span><i class="fa-solid fa-star"></i></span><span>Freshly Prepared, Always Delicious</span><span><i class="fa-solid fa-star"></i></span><span>Taste the Joy in Every Bite</span><span><i class="fa-solid fa-star"></i></span><span>Good Food. Great Mood.</span><span><i class="fa-solid fa-star"></i></span><span>Made with Love, Served with Joy</span><span><i class="fa-solid fa-star"></i></span></div></div>
-<section id="about"><div class="container"><div class="row gy-4 gx-lg-5 align-items-center">
-  <div class="col-lg-6 reveal"><div class="card-img rounded-4" style="aspect-ratio:5/4"><img src="assets/images/about.jpg" alt="Inside Joy Restaurant" loading="lazy" onerror="this.style.display='none'"></div></div>
-  <div class="col-lg-6 reveal"><h2 class="sec-title">Our Story</h2>
-   <p class="sec-sub">Joy Restaurant began with a simple idea: great food should make people happy. (Sample text — replace with your own story.)</p>
-   <div class="row g-3"><div class="col-sm-6"><div class="card-joy p-3"><h3 class="h5"><i class="fa-solid fa-bullseye text-warning me-2"></i>Mission</h3><p class="sec-sub small mb-0">Serve freshly prepared meals with warm hospitality every day.</p></div></div>
-   <div class="col-sm-6"><div class="card-joy p-3"><h3 class="h5"><i class="fa-solid fa-eye text-warning me-2"></i>Vision</h3><p class="sec-sub small mb-0">Be the place people choose for every celebration.</p></div></div></div></div>
+</div>
+<div class="col-lg-5 d-none d-lg-block">
+  <!-- Hero visual: shows a styled plate until you add assets/images/hero-dish.png (round or transparent PNG of your best dish) -->
+  <div class="hero-visual" aria-hidden="true"><div class="hv-ring r1"></div><div class="hv-ring r2"></div>
+    <div class="hv-plate"><i class="fa-solid fa-utensils"></i><img src="assets/images/hero-dish.png" alt="" onerror="this.remove()"></div>
+    <div class="hv-chip c1"><i class="fa-solid fa-star"></i><b>4.8+</b><small>Guest rating</small></div>
+    <div class="hv-chip c2"><i class="fa-solid fa-leaf"></i><b>Fresh</b><small>Made daily</small></div>
+    <div class="hv-chip c3"><i class="fa-solid fa-fire-burner"></i><b>Hot</b><small>Served right</small></div></div></div>
 </div></div></section>
-<section id="menu" class="alt"><div class="container"><div class="text-center mb-4 reveal"><h2 class="sec-title">Our Menu</h2><p class="sec-sub">Freshly made, every day.</p><div id="menuFilters"></div></div>
+<!-- PROMO MARQUEE: two crossing ribbons. Pure CSS; each track repeats its content so the loop never shows a gap. -->
+<div class="ribbons" aria-label="Promotions">
+  <div class="ribbon ribbon-a"><div class="ribbon-track"><span class="rb-item">Freshly Prepared, Always Delicious</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy in Every Bite</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Good Food. Great Mood.</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Made with Love, Served with Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Freshly Prepared, Always Delicious</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy in Every Bite</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Good Food. Great Mood.</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Made with Love, Served with Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Freshly Prepared, Always Delicious</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy in Every Bite</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Good Food. Great Mood.</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Made with Love, Served with Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Freshly Prepared, Always Delicious</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy in Every Bite</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Good Food. Great Mood.</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Made with Love, Served with Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span></div></div>
+  <div class="ribbon ribbon-b" aria-hidden="true"><div class="ribbon-track rev"><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Dine</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Relax</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Enjoy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span><span class="rb-item">Taste the Joy</span><span class="rb-dot"><i class="fa-solid fa-utensils"></i></span></div></div>
+</div>
+<section id="about"><div class="container"><div class="row gy-4 gx-lg-5 align-items-center">
+  <div class="col-lg-6 reveal"><div class="card-img rounded-4" style="aspect-ratio:5/4"><img src="assets/images/about.jpg" alt="Inside Joy Restaurant" loading="lazy" onerror="this.style.display='none'"><div class="about-badge"><i class="fa-solid fa-leaf"></i><span>Fresh ingredients,<br>every single day</span></div></div></div>
+  <div class="col-lg-6 reveal"><span class="eyebrow">About us</span><h2 class="sec-title">Our Story</h2>
+   <p class="sec-sub" data-setting="story">Joy Restaurant began with a simple idea: great food should make people happy. (Sample text — replace with your own story.)</p>
+   <div class="row g-3"><div class="col-sm-6"><div class="card-joy p-3"><h3 class="h5"><i class="fa-solid fa-bullseye text-warning me-2"></i>Mission</h3><p class="sec-sub small mb-0" data-setting="mission">Serve freshly prepared meals with warm hospitality every day.</p></div></div>
+   <div class="col-sm-6"><div class="card-joy p-3"><h3 class="h5"><i class="fa-solid fa-eye text-warning me-2"></i>Vision</h3><p class="sec-sub small mb-0" data-setting="vision">Be the place people choose for every celebration.</p></div></div></div></div>
+</div></div></section>
+<section id="menu" class="alt"><div class="container"><div class="text-center mb-4 reveal"><span class="eyebrow">Fresh from our kitchen</span><h2 class="sec-title">Our Menu</h2><p class="sec-sub">Freshly made, every day.</p><div id="menuFilters"></div></div>
   <div class="row g-4" id="menuGrid"></div><ul class="pagination justify-content-center mt-4" id="menuPager"></ul></div></section>
-<section><div class="container reveal"><div class="cta-band"><h2 class="sec-title">Save your table</h2>
-  <p class="mb-4">Reserve in under a minute. We'll confirm your request by email.</p><a class="btn-joy" href="reservation.html">Reserve a table</a></div></div></section>
-<section id="contact" class="alt"><div class="container"><h2 class="sec-title text-center mb-5 reveal">Contact us</h2><div class="row g-4">
-  <div class="col-lg-5 reveal"><ul class="list-unstyled sec-sub">
-   <li class="mb-2"><i class="fa-solid fa-location-dot text-warning me-2"></i>123 Restaurant Lane, Lagos, Nigeria</li>
-   <li class="mb-2"><i class="fa-solid fa-phone text-warning me-2"></i>+234 901 234 5678</li>
-   <li class="mb-2"><i class="fa-solid fa-envelope text-warning me-2"></i>hello@joyrestaurant.com</li>
-   <li class="mb-3"><i class="fa-regular fa-clock text-warning me-2"></i>Mon – Sun: 9AM – 11PM</li></ul>
+<!-- RESERVE A TABLE -->
+<section id="reserve" class="reserve-sec"><div class="container reveal"><div class="reserve-card"><div class="row align-items-center g-4">
+  <div class="col-lg-7"><span class="tag"><i class="fa-regular fa-calendar-check me-2"></i>Book a table</span>
+    <h2 class="rs-title">Save your table for an <em>unforgettable</em> evening</h2>
+    <p class="rs-text">Birthdays, date nights or a relaxed family lunch. Send a request in under a minute and we will confirm it by email.</p>
+    <ul class="rs-points"><li><i class="fa-solid fa-circle-check"></i>Free to book, no payment needed</li><li><i class="fa-solid fa-circle-check"></i>Confirmation sent to your email</li><li><i class="fa-solid fa-circle-check"></i>Groups and celebrations welcome</li></ul>
+    <div class="d-flex flex-wrap gap-2"><a class="btn-joy" href="reservation.html"><i class="fa-solid fa-calendar-check me-2"></i>Reserve a table</a><a class="btn-ghost-light" href="#contact">Ask a question</a></div></div>
+  <div class="col-lg-5"><div class="rs-glass"><div class="rs-label">Opening hours</div><div class="rs-hours" data-setting="hours">Mon – Sun: 9AM – 11PM</div>
+    <div class="rs-row"><i class="fa-solid fa-phone"></i><span data-setting="phone">+234 901 234 5678</span></div>
+    <div class="rs-row"><i class="fa-solid fa-location-dot"></i><span data-setting="address">123 Restaurant Lane, Lagos, Nigeria</span></div></div></div>
+</div></div></div></section>
+<section id="contact" class="alt"><div class="container"><div class="text-center"><span class="eyebrow">Get in touch</span></div><h2 class="sec-title text-center mb-5 reveal">Contact us</h2><div class="row g-4">
+  <div class="col-lg-5 reveal"><div class="contact-tiles">
+   <div class="ct"><i class="fa-solid fa-location-dot"></i><div><small>Visit us</small><span data-setting="address">123 Restaurant Lane, Lagos, Nigeria</span></div></div>
+   <div class="ct"><i class="fa-solid fa-phone"></i><div><small>Call us</small><span data-setting="phone">+234 901 234 5678</span></div></div>
+   <div class="ct"><i class="fa-solid fa-envelope"></i><div><small>Email us</small><span data-setting="email">hello@joyrestaurant.com</span></div></div>
+   <div class="ct"><i class="fa-regular fa-clock"></i><div><small>Opening hours</small><span data-setting="hours">Mon – Sun: 9AM – 11PM</span></div></div></div>
    <!-- Replace the src with your real Google Maps embed URL -->
-   <iframe class="map-frame" title="Map" loading="lazy" src="https://www.google.com/maps?q=Lagos,Nigeria&output=embed"></iframe></div>
-  <div class="col-lg-7 reveal"><form id="contactForm" class="row g-3" novalidate>
+   <iframe class="map-frame" data-map title="Map" loading="lazy" src="https://www.google.com/maps?q=Lagos,Nigeria&output=embed"></iframe></div>
+  <div class="col-lg-7 reveal"><form id="contactForm" class="row g-3 card-joy p-3 p-sm-4" novalidate>
    <div class="col-md-6"><label class="form-label" for="name">Full name</label><input class="form-control" id="name" name="name" type="text" ><div class="invalid-msg" data-err="name"></div></div><div class="col-md-6"><label class="form-label" for="email">Email</label><input class="form-control" id="email" name="email" type="email" ><div class="invalid-msg" data-err="email"></div></div><div class="col-12"><label class="form-label" for="subject">Subject</label><input class="form-control" id="subject" name="subject" type="text" ><div class="invalid-msg" data-err="subject"></div></div>
    <div class="col-12"><label class="form-label" for="message">Message</label><textarea class="form-control" id="message" name="message" rows="5"></textarea><div class="invalid-msg" data-err="message"></div></div>
    <div class="col-12"><button class="btn-joy" type="submit">Send message</button></div></form></div>
@@ -72,18 +100,18 @@
 <div class="footer-wave on-alt" aria-hidden="true"></div>
 <footer class="footer"><div class="container"><div class="row g-4">
   <div class="col-lg-4"><div class="brand fs-2 mb-2"><i class="fa-solid fa-utensils me-2"></i>Joy Restaurant</div>
-    <p class="fst-italic mb-2">Good Food. Great Mood.</p>
+    <p class="fst-italic mb-2" data-setting="tagline">Good Food. Great Mood.</p>
     <p class="text-white-50">At Joy Restaurant we serve delicious meals made with passion, in a warm and elegant atmosphere.</p>
-    <div class="social"><a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div>
+    <div class="social"><a href="#" data-social="facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="#" data-social="x" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a><a href="#" data-social="instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="#" data-social="youtube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></div></div>
   <div class="col-6 col-lg-2"><h5>Quick Links</h5><ul class="list-unstyled">
     <li><a href="#home">Home</a></li><li><a href="#menu">Menu</a></li><li><a href="reservation.html">Reservation</a></li><li><a href="#about">About Us</a></li><li><a href="#contact">Contact</a></li></ul></div>
   <div class="col-lg-4"><h5>Contact Info</h5><ul class="list-unstyled">
-    <li><i class="fa-solid fa-location-dot"></i>123 Restaurant Lane, Lagos, Nigeria</li>
-    <li><i class="fa-solid fa-phone"></i>+234 901 234 5678</li>
-    <li><i class="fa-solid fa-envelope"></i>hello@joyrestaurant.com</li>
-    <li><i class="fa-regular fa-clock"></i>Mon – Sun: 9AM – 11PM</li></ul>
+    <li><i class="fa-solid fa-location-dot"></i><span data-setting="address">123 Restaurant Lane, Lagos, Nigeria</span></li>
+    <li><i class="fa-solid fa-phone"></i><span data-setting="phone">+234 901 234 5678</span></li>
+    <li><i class="fa-solid fa-envelope"></i><span data-setting="email">hello@joyrestaurant.com</span></li>
+    <li><i class="fa-regular fa-clock"></i><span data-setting="hours">Mon – Sun: 9AM – 11PM</span></li></ul>
     <a class="btn-ghost text-white" href="#contact"><i class="fa-solid fa-location-dot me-1"></i>View on Map</a></div>
-  <div class="col-lg-2 d-flex align-items-center"><p class="brand fs-3 fst-italic text-white">Dine · Relax · Enjoy</p></div>
+  <div class="col-lg-2 d-flex align-items-center"><p class="foot-motto">Dine · Relax · Enjoy</p></div>
 </div>
 <div class="footer-bar d-flex flex-wrap justify-content-between align-items-center gap-3">
   <span>© 2026 Joy Restaurant. All rights reserved. &nbsp;|&nbsp; Designed and Developed by
@@ -93,5 +121,5 @@
 <!-- END: PUBLIC FOOTER -->
 <div id="toastBox" aria-live="polite"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/data.js"></script><script src="assets/js/api.js"></script><script src="assets/js/main.js"></script>
+<script src="assets/js/data.js"></script><script src="assets/js/api.js"></script><script src="assets/js/main.js"></script><script src="assets/js/site-settings.js"></script>
 </body></html>

@@ -18,12 +18,12 @@ function render() {
   const pages = Math.max(1, Math.ceil(list.length / PER)); page = Math.min(page, pages);
   const rows = list.slice((page-1)*PER, page*PER);
   const badge = p => `<span class="badge ${p.available ? "badge-ok" : "badge-no"}">${p.available ? "Available" : "Sold out"}</span>`;
-  const thumb = p => `<img class="em-thumb" src="${img(p)}" alt="${p.name}" loading="lazy" onerror="this.style.opacity='0'">`;
-  document.getElementById("tableBody").innerHTML = rows.map(p => `<tr><td>${thumb(p)}</td><td class="fw-bold">${p.name}</td>
-    <td class="sec-sub">${p.description}</td><td>${p.category}</td><td class="price">${naira(p.price)}</td><td>${badge(p)}</td></tr>`).join("");
+  const thumb = p => `<img class="em-thumb" src="${esc(img(p))}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.opacity='0'">`;
+  document.getElementById("tableBody").innerHTML = rows.map(p => `<tr><td>${thumb(p)}</td><td class="fw-bold">${esc(p.name)}</td>
+    <td class="sec-sub">${esc(p.description)}</td><td>${esc(p.category)}</td><td class="price">${naira(p.price)}</td><td>${badge(p)}</td></tr>`).join("");
   document.getElementById("cardList").innerHTML = rows.map(p => `<div class="em-card">${thumb(p)}<div class="flex-grow-1">
-    <div class="d-flex justify-content-between"><b>${p.name}</b><span class="price">${naira(p.price)}</span></div>
-    <div class="sec-sub small">${p.description}</div><div class="mt-1">${badge(p)}</div></div></div>`).join("");
+    <div class="d-flex justify-content-between"><b>${esc(p.name)}</b><span class="price">${naira(p.price)}</span></div>
+    <div class="sec-sub small">${esc(p.description)}</div><div class="mt-1">${badge(p)}</div></div></div>`).join("");
   document.getElementById("empty").hidden = rows.length > 0;     // friendly empty state
   document.getElementById("pager").innerHTML = pages < 2 ? "" : Array.from({length:pages}, (_, i) =>
     `<li class="page-item ${i+1===page?"active":""}"><button class="page-link" data-p="${i+1}">${i+1}</button></li>`).join("");
@@ -35,7 +35,7 @@ function render() {
   try { all = await API.getProducts(); } catch { document.getElementById("cardList").innerHTML = "<p class='text-center'>Could not load the menu. Please refresh.</p>"; return; }
   const cats = [...(() => { const m = new Map(); all.forEach(p => { const k = p.category.toLowerCase(); if (!m.has(k)) m.set(k, p.category); }); return m.entries(); })()];   // unique, case-insensitive
   const f = document.getElementById("filters");
-  f.innerHTML = `<button class="filter-btn active" data-c="all">All</button>` + cats.map(([k, l]) => `<button class="filter-btn" data-c="${k}">${l}</button>`).join("");
+  f.innerHTML = `<button class="filter-btn active" data-c="all">All</button>` + cats.map(([k, l]) => `<button class="filter-btn" data-c="${esc(k)}">${esc(l)}</button>`).join("");
   f.onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return; cat = b.dataset.c; page = 1;
     f.querySelectorAll(".filter-btn").forEach(x => x.classList.toggle("active", x === b)); render(); };
   document.getElementById("search").oninput = e => { q = e.target.value.trim().toLowerCase(); page = 1; render(); };
