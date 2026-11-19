@@ -44,10 +44,10 @@ function renderMenu() {
   grid.classList.add("fading");
   setTimeout(() => {
     grid.innerHTML = list.slice((page-1)*PER_PAGE, page*PER_PAGE).map(p => `
-      <div class="col-md-6 col-lg-4"><article class="card-joy">
-        <div class="card-img"><img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"><span class="chip">${p.category}</span></div>
-        <div class="p-3"><div class="d-flex justify-content-between align-items-start"><h3 class="h5">${p.name}</h3><span class="price">${naira(p.price)}</span></div>
-        <p class="sec-sub small mb-2">${p.description}</p>
+      <div class="col-md-6 col-lg-4"><article class="card-joy ${p.available ? "" : "sold"}">
+        <div class="card-img"><img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none'"><span class="chip">${esc(p.category)}</span></div>
+        <div class="p-3"><div class="d-flex justify-content-between align-items-start"><h3 class="h5">${esc(p.name)}</h3><span class="price">${naira(p.price)}</span></div>
+        <p class="sec-sub small mb-2">${esc(p.description)}</p>
         <span class="badge ${p.available ? "badge-ok" : "badge-no"}">${p.available ? "Available" : "Sold out"}</span></div></article></div>`).join("") || `<p class="text-center">No dishes found.</p>`;
     document.getElementById("menuPager").innerHTML = pages < 2 ? "" : Array.from({length:pages}, (_, i) =>
       `<li class="page-item ${i+1===page?"active":""}"><button class="page-link" data-p="${i+1}">${i+1}</button></li>`).join("");
@@ -60,7 +60,7 @@ async function initMenu() {
   try { products = await API.getProducts(); } catch { grid.innerHTML = "<p class='text-center'>Could not load the menu.</p>"; return; }
   const cats = [...(() => { const m = new Map(); products.forEach(p => { const k = p.category.toLowerCase(); if (!m.has(k)) m.set(k, p.category); }); return m.entries(); })()];  // unique, case-insensitive
   document.getElementById("menuFilters").innerHTML = `<button class="filter-btn active" data-c="all">All</button>` +
-    cats.map(([k, label]) => `<button class="filter-btn" data-c="${k}">${label}</button>`).join("");
+    cats.map(([k, label]) => `<button class="filter-btn" data-c="${esc(k)}">${esc(label)}</button>`).join("");
   document.getElementById("menuFilters").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return;
     cat = b.dataset.c; page = 1; document.querySelectorAll(".filter-btn").forEach(x => x.classList.toggle("active", x === b)); renderMenu(); };
   document.getElementById("menuPager").onclick = e => { const b = e.target.closest("[data-p]"); if (b) { page = +b.dataset.p; renderMenu(); } };
@@ -81,7 +81,7 @@ cf?.addEventListener("submit", async e => {
   if (Object.keys(err).length) return;
   const btn = cf.querySelector("button"); if (btn.disabled) return;
   btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Sending…';
-  try { const r = await API.sendContact(d); showToast(r.message, r.success ? "success" : "error"); if (r.success) cf.reset(); }
+  try { const r = await API.sendContact(d); if (!r.success) showServerErrors(cf, r.errors); showToast(r.message, r.success ? "success" : "error"); if (r.success) cf.reset(); }
   catch { showToast("Network error. Please try again.", "error"); }
   btn.disabled = false; btn.textContent = "Send message";
 });

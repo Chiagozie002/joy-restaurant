@@ -4,11 +4,17 @@ const dateInput = rf.elements.date; const now = new Date(), pad = n => String(n)
 const today = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;   // local date, not UTC
 dateInput.min = today;   // blocks past dates
 /* Build time slots from the configurable opening hours (last slot = 1h before closing) */
-const [oh, om] = SETTINGS.open.split(":").map(Number), [ch, cm] = SETTINGS.close.split(":").map(Number);
-for (let m = oh*60+om; m <= ch*60+cm-60; m += SETTINGS.slotMinutes) {
-  const t = `${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
-  rf.elements.time.add(new Option(t, t));
+function buildSlots() {
+  rf.elements.time.length = 1;                                   // keep only the "Select time" option
+  const [oh, om] = SETTINGS.open.split(":").map(Number), [ch, cm] = SETTINGS.close.split(":").map(Number);
+  for (let m = oh*60+om; m <= ch*60+cm-60; m += SETTINGS.slotMinutes) {
+    const t = `${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
+    rf.elements.time.add(new Option(t, t));
+  }
+  rf.elements.guests.max = SETTINGS.maxGuests;
 }
+buildSlots();
+window.siteSettingsReady?.then(buildSlots);                      // rebuild with the opening hours saved in the database
 rf.addEventListener("submit", async e => {
   e.preventDefault();
   const d = Object.fromEntries(new FormData(rf)); const err = {};
@@ -25,7 +31,7 @@ rf.addEventListener("submit", async e => {
   btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Sending…';
   try {
     const r = await API.createReservation(d);
-    if (!r.success) throw new Error(r.message);
+    if (!r.success) { showServerErrors(rf, r.errors); throw new Error(r.message); }
     /* DEMO ONLY: real PHP should redirect using a trusted session/token, not browser storage. */
     sessionStorage.setItem("joy-last-reservation", JSON.stringify(r.data));
     location.href = "reservation-success.html";          // only after a successful save
